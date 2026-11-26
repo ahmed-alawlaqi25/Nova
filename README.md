@@ -87,5 +87,5 @@ python nova_tg.py
 Available commands:
 - `/start` — Start a fresh conversation
 - `/help` — Show available commands
-- `/gif <topic>` — Send a SFW GIF from Giphy
+- `/gif <topic>` — Send GIF from Giphy
 - `/reset` — Clear your conversation memory
