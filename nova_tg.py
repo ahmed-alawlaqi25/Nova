@@ -2,7 +2,6 @@ import os
 import random
 import re
 from pathlib import Path
-
 import ollama
 import requests
 from telegram import Update
@@ -41,7 +40,7 @@ PERSONALITY = """You are Nova, a friendly, helpful, and understanding AI assista
 # ============================================
 
 histories: dict[int, list[dict[str, str]]] = {}
-ollama_client = ollama.AsyncClient(host="http://127.0.0.1:11434", trust_env=False)
+ollama_client = ollama.AsyncClient(host=os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434"))
 
 GIF_TAG_RE = re.compile(r"\[?SEND_GIF\s*:\s*([^\]\n]*)\]?", re.IGNORECASE)
 USER_GIF_RE = re.compile(r"\b(gif|gifs)\b", re.IGNORECASE)
@@ -106,7 +105,7 @@ async def on_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_id = update.message.from_user.id
     histories[user_id] = [{"role": "system", "content": PERSONALITY}]
     await update.message.reply_text(
-        "Hi! I'm Nova, your friendly SFW assistant. Ask me anything, or ask for a GIF anytime (e.g. \"send me a funny gif\" or /gif happy)."
+        "Hi! I'm Nova, your friendly assistant. Ask me anything, or ask for a GIF anytime (e.g. \"send me a funny gif\" or /gif happy)."
     )
 
 
@@ -193,7 +192,7 @@ def main() -> None:
     app.add_handler(CommandHandler("reset", on_reset))
     app.add_handler(CommandHandler("gif", on_gif))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_message))
-    print("Nova SFW Telegram bot is running... (Ctrl+C to stop)")
+    print("Nova Telegram bot is running... (Ctrl+C to stop)")
     app.run_polling()
 
 

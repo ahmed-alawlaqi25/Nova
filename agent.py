@@ -5,7 +5,7 @@ import sys
 
 # ================= SETTINGS =================
 MODEL = "hermes3:8b"
-TENOR_API_KEY = ""  # paste your Tenor key here later, "" disables /gif
+TENOR_API_KEY = "LIVDSRZULELA"  # paste your Tenor key here later, "" disables /gif
 GIF_LIMIT = 8
 
 PERSONALITY = """You are Nova, the user's personal AI companion.
